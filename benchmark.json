@@ -1,0 +1,36 @@
+{
+    "type": "benchmark",
+    "name":"Cyclic Redundancy Check",
+    "short-name":"crc",
+    "description":"A cyclic redundancy check is an error-detecting code commonly used in digital networks and storage devices to detect accidental changes to raw data. Blocks of data entering these systems get a short check value attached, based on the remainder of a polynomial division of their contents; on retrieval the calculation is repeated, and corrective action if the check values do not match, in which case the data are corrupted.",
+    "version":"0.1.0",
+    "input-size":{
+        "small": {
+            "page-size": 128,
+            "page-nb": 128,
+            "repetitions": 1  
+        },
+        "medium": {
+            "page-size": 65536,
+            "page-nb": 128,
+            "repetitions": 150
+        },
+        "large": {
+            "page-size": 65536,
+            "page-nb": 128,
+            "repetitions": 1500
+        }
+    },
+    "random-seed":1337,
+    "dwarf": "combinational logic",
+    "bkp-output": {
+        "type": "output-value",
+        "output-check-arguments": [
+            { "expand": "/experiment/input-size/page-size" },
+            { "expand": "/experiment/input-size/page-nb" },
+            { "expand": "/experiment/input-size/repetitions" },
+            { "config": "/benchmark/random-seed" },
+            { "config": "/experiment/output-value" }
+        ]
+    }
+}

@@ -1,0 +1,27 @@
+{
+    "type": "implementation",
+    "short-name":"matlab",
+    "description":"Matlab port of C implementation",
+    "language":"matlab",
+    "core-source-files":[
+       { "file": "./crc_ostrich.m"},
+       { "file": "./crc32_8bytes.m"}
+    ],
+    "runner-source-file": { "file": "./runner.m" },
+    "runner-arguments": [
+        { 
+            "expand": "/experiment/input-size",
+            "path": "/page-size"
+        },
+        { 
+            "expand": "/experiment/input-size",
+            "path": "/page-nb"
+        },
+        { 
+            "expand": "/experiment/input-size",
+            "path": "/repetitions"
+        },
+        { "file": "./Lut.data" }
+    ],
+    "libraries":[]
+}

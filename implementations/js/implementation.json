@@ -1,0 +1,27 @@
+{
+    "type": "implementation",
+    "short-name":"js",
+    "description":"JavaScript implementation ported from C",
+    "language":"js",
+    "core-source-files":[
+        { "file": "./crc.js" }
+    ],
+    "runner-source-file": { "file": "./runner.js" },
+    "runner-arguments": [
+        {  
+            "expand": "/experiment/input-size",
+            "path": "/page-size" 
+        },
+        { 
+            "expand": "/experiment/input-size",
+            "path": "/page-nb"
+        },
+        { 
+            "expand": "/experiment/input-size",
+            "path": "/repetitions"
+        }
+    ],
+    "libraries": [
+        { "suite-root": "/benchmarks/common/common_rand.js" }
+    ]
+}

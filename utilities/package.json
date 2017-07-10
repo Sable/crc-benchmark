@@ -1,0 +1,9 @@
+{
+	"name": "data",
+	"version": "0.1.0",
+	"bin": "data2",
+	"dependencies": {
+		"nopt": ">=3.0.6",
+		"nopt-usage": ">=0.1.0"
+	}
+}
