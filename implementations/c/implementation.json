@@ -30,9 +30,9 @@
         }
     ],
     "libraries":[
-        { "suite-root": "/common/common_rand.c" },
+        { "file": "./common/common_rand.c" },
         { "file": "./common/common.c" },
-        { "file": "./args_serial.c" },
+        { "file": "./common_args_serial.c" },
         { "file": "./crc_formats.c" }
     ],
     "include-directories":[
