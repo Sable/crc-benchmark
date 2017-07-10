@@ -39,8 +39,11 @@
         { "file": "./common/"}
         
     ],
-    "dependencies":{
+    "dependencies":
+    [
+        {
             "source": "https://github.com/Sable/ostrich-c-implementation-common.git",
             "destination": "./common"
         }
+    ]
 }
