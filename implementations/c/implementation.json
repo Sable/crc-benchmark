@@ -36,11 +36,9 @@
         { "file": "./crc_formats.c" }
     ],
     "include-directories":[
-        { "file": "./common"}
-        
+        { "file": "./common"} 
     ],
-    "dependencies":
-    [
+    "dependencies": [
         {
             "source": "https://github.com/Sable/ostrich-c-implementation-common.git",
             "destination": "./common"
