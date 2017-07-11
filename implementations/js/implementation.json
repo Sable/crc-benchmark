@@ -22,6 +22,12 @@
         }
     ],
     "libraries": [
-        { "suite-root": "/benchmarks/common/common_rand.js" }
+        { "suite-root": "./common/common_rand.js" }
+    ],
+    "dependencies":[
+        {
+            "source": "https://github.com/Sable/ostrich-js-implementation-common.git",
+            "destination": "./common"
+        }
     ]
 }
