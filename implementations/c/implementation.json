@@ -36,7 +36,7 @@
         { "file": "./crc_formats.c" }
     ],
     "include-directories":[
-        { "file": "./common/"}
+        { "file": "./common"}
         
     ],
     "dependencies":
