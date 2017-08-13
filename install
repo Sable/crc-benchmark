@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+var wu = require('wu-wei-benchmarking-toolkit')
+var path = require('path')
+var shelljs = require('shelljs')
+var fs = require('fs')
+
+function filePathExists (path) {
+  try {
+    fs.accessSync(path)
+    return true
+  } catch (err) {}
+  return false
+}
+
+wu.build({
+  benchmarks: ['crc'],
+  compilers: ['gcc'],
+  implementations: ['c']
+}, function (err, configs) {
+  if (err) {
+    console.log('Error while building CRC\'s c implementation using wu-wei:')
+    console.error(err)
+    process.exit(1)
+  }
+
+  var config = configs[0]
+  var runner = path.join(config.location, config.compiler['runner-name'])
+
+  var inputSizes = config.benchmark['input-size']
+  for (var k in inputSizes) {
+    var pageSize = inputSizes[k]['page-size']
+    var pageNb = inputSizes[k]['page-nb']
+    var filePath = './input/' + pageSize + '-' + pageNb + '-data.csv'
+
+    // Skip if the files already exist
+    if (filePathExists(filePath)) {
+      continue
+    }
+
+    console.log('Generating input for page-size ' + pageSize + ' and page-nb ' + pageNb + ': ' + filePath)
+    var args = ['-s', pageSize, '-n', pageNb, '-r', 1, '-f', filePath]
+    shelljs.exec([runner].concat(args).join(' '))
+  }
+
+  console.log('crc benchmark ready')
+})

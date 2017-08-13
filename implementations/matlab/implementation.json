@@ -21,7 +21,8 @@
             "expand": "/experiment/input-size",
             "path": "/repetitions"
         },
-        { "file": "./Lut.data" }
+        { "file": "./Lut.data" },
+        { "file": "../../input" }
     ],
     "libraries":[]
 }

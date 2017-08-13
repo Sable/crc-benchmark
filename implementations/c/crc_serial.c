@@ -65,13 +65,14 @@ uint32_t crc32_8bytes(const void* data, size_t length){
 
 void usage()
 {
-    fprintf(stderr, "crc [-s <page_size>] [-n <num_pages>] [-r <num_execs>] \n");
+    fprintf(stderr, "crc [-s <page_size>] [-n <num_pages>] [-r <num_execs>] [-f <file_path>]\n");
     fprintf(stderr, "Common arguments:\n");
     fprintf(stderr, "Program-specific arguments:\n");
     fprintf(stderr, "\t-h | 'Print this help message'\n");
     fprintf(stderr, "\t-n: Random Generation: Create <num_pages> pages - Default is 1\n");
     fprintf(stderr, "\t-s: Random Generation: Set # of bytes with each page to <page_size> - Default is 1024\n");
     fprintf(stderr, "\t-r: Specify the number of times the benchmark should be run\n");
+    fprintf(stderr, "\t-f: Specify the file path where the generated input should be saved\n");
     exit(0);
 }
 
@@ -83,9 +84,10 @@ int main(int argc, char** argv){
     unsigned int* crcs;
     unsigned int final_crc, expected_crc;
     double cumulative_time=0;
+    char* file_path = NULL;
     stopwatch sw;
 
-    while((c = getopt(argc, argv, "hs:n:r:")) != -1)
+    while((c = getopt(argc, argv, "hs:n:r:f:")) != -1)
     {
         switch(c)
         {
@@ -102,6 +104,9 @@ int main(int argc, char** argv){
         case 'r':
             num_execs = atoi(optarg);
             break;
+        case 'f':
+            file_path = optarg;
+            break;
         default:
             fprintf(stderr, "Invalid argument: '%s'\n\n",optarg);
             usage();
@@ -115,6 +120,17 @@ int main(int argc, char** argv){
 
     num_words = page_size / 4;
     h_num = rand_crc(num_pages, page_size);
+
+    // Save input in a file, possibly for use by
+    // other implementations
+    if (file_path != NULL) {
+        FILE *fp = fopen(file_path, "w");
+        for (int i=0; i<num_pages*(page_size/4); ++i) {
+            fprintf(fp, "%u\n", h_num[i]);
+        }
+        fclose(fp);
+    }
+
     crcs = malloc(sizeof(*crcs)*num_pages);
 
     expected_crc = 2231263667;
@@ -137,17 +153,10 @@ int main(int argc, char** argv){
         }
     }
     stopwatch_stop(&sw);
-
-    // Moved out of the loop to avoid slowing down the benchmark with IO in case
-    // no self-checking is performed
-    if (!(page_size == 65536 && num_pages == 128)){
-        fprintf(stderr, "WARNING: no self-checking step for page_size '%u' and num_pages '%u'\n", page_size, num_pages);
-    }
-
     cumulative_time += get_interval_by_sec(&sw);
 
 
-    printf("{ \"status\": %d, \"options\": \"-n %d -s %d -r %d\", \"time\": %f }\n", 1, num_pages, page_size, num_execs, get_interval_by_sec(&sw));
+    printf("{ \"status\": %d, \"options\": \"-n %d -s %d -r %d\", \"time\": %f, \"output\": %d }\n", 1, num_pages, page_size, num_execs, get_interval_by_sec(&sw), final_crc);
 
     free(h_num);
     return 0;

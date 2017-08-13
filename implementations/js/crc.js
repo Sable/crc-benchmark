@@ -331,3 +331,7 @@ function randCRC (numPages, pageSize) {
 
   return page
 }
+
+if (typeof module !== 'undefined') {
+  module.exports.crc32_8bytes = crc32_8bytes
+}

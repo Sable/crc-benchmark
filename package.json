@@ -1,0 +1,23 @@
+{
+  "name": "crc-benchmark",
+  "version": "1.0.0",
+  "description": "crc benchmark",
+  "main": "install",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sable/crc-benchmark.git"
+  },
+  "author": "Erick Lavoie",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Sable/crc-benchmark/issues"
+  },
+  "homepage": "https://github.com/Sable/crc-benchmark#readme",
+  "dependencies": {
+    "shelljs": "^0.7.8",
+    "wu-wei-benchmarking-toolkit": "^0.2.1"
+  }
+}
